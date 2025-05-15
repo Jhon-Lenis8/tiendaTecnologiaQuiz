@@ -22,19 +22,21 @@ public class UsuarioDAO {
 
 
 
-	public boolean authenticate(String nickname, String contraseña) {
-		  String sql = "SELECT * FROM Usuario WHERE nickname=? AND contraseña=?";
-	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-	            stmt.setString(1, nickname);
-	            stmt.setString(2, contraseña);
-	            ResultSet rs = stmt.executeQuery();
-	            if (rs.next()) {
-	                return rs.getString("nickname").equals(nickname) && rs.getString("contraseña").equals(contraseña);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	        return false;
-	    }
+	public boolean authenticate(String nickname, String contraseña, String role) {
+		String sql = "SELECT * FROM Usuario WHERE nickname=? AND contraseña=? AND rol=?";
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setString(1, nickname);
+			stmt.setString(2, contraseña);
+			stmt.setString(2, role);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString("nickname").equals(nickname) && rs.getString("contraseña").equals(contraseña)
+						&& rs.getString("rol").equals(role);
+			}
+		} catch (SQLException e) {
 
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
