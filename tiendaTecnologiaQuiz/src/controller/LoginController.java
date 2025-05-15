@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.UserSession;
 
 public class LoginController {
 
@@ -31,6 +32,8 @@ public class LoginController {
     
     private Connection connection;
     private UsuarioDAO usuarioDAO;
+    
+    public UserSession userSession;
 
 
     @FXML
@@ -41,6 +44,8 @@ public class LoginController {
     		usuarioDAO = new UsuarioDAO(connection);
     		
     		if(usuarioDAO.authenticate(txtUsuario.getText(),txtContraseña.getText(), "admin")) {
+    			userSession = UserSession.getInstance(txtUsuario.getText(), "admin");
+    			Main.loadView("/view/Login.fxml");
     			Main.showAlert("Usuario invalido", "Usuario invalido", "Digite un usuario valido", Alert.AlertType.WARNING);
     		}
     		break;

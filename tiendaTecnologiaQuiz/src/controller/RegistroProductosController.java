@@ -5,6 +5,7 @@ import java.sql.Connection;
 
 import application.Main;
 import data.DBConnection;
+import data.DBConnectionFactory;
 import data.ProductoDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Producto;
+import model.UserSession;
 
 public class RegistroProductosController {
 
@@ -43,7 +45,7 @@ public class RegistroProductosController {
     @FXML
     private TextField txtReferencia;
     
-    private Connection connection = DBConnection.getInstance().getConnection();
+    private Connection connection = DBConnectionFactory.getConnectionByRole(UserSession.getInstance().getRole()).getConnection();
     private ProductoDAO productoDAO = new ProductoDAO(connection);
     
     @FXML
@@ -102,6 +104,7 @@ public class RegistroProductosController {
     
     @FXML
     void cerrarSesion(ActionEvent event) {
+    	UserSession.getInstance().destroy();
     	Main.loadView("/view/Login.fxml");
     }
 

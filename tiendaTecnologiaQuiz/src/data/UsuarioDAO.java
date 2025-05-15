@@ -23,7 +23,7 @@ public class UsuarioDAO {
 
 
 	public boolean authenticate(String nickname, String contraseña, String role) {
-		String sql = "SELECT * FROM Usuario WHERE nickname=? AND contraseña=? AND rol=?";
+		String sql = "SELECT * FROM PrograminII.Usuario WHERE nickname=? AND contraseña=? AND rol=?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, nickname);
 			stmt.setString(2, contraseña);

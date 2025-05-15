@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class TeacherConection implements DBConnection {
-    private static TeacherConection instance; //Singleton
+public class TeacherConnection implements DBConnection {
+    private static TeacherConnection instance; //Singleton
     private Connection connection;
 	private final String username="teacherPro";
 	private final String password="teacherPro";
@@ -13,7 +13,7 @@ public class TeacherConection implements DBConnection {
 	private final String port = "1521";
 	private final String service = "orcl";
 
-    private TeacherConection() {
+    private TeacherConnection() {
         try {
             connection = DriverManager.getConnection(getConnectionString(), username, password);
         } catch (SQLException e) {
@@ -22,8 +22,8 @@ public class TeacherConection implements DBConnection {
         }
     }
 
-    public static TeacherConection getInstance() {
-        if (instance == null) instance = new TeacherConection();
+    public static TeacherConnection getInstance() {
+        if (instance == null) instance = new TeacherConnection();
         return instance;
     }
 
